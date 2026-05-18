@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "93R7_r",
+      "email": "admin@example.com",
+      "first_name": "Admin",
+      "last_name": "User",
+      "role": "admin",
+      "isBlocked": false,
+      "hashedPassword": "$2b$10$JimyATOMbdi7iTUqBdvPiuyWDIV1UnMz..u6JvG5sRhDaha85lc72"
+    }
+  ],
+  "products": [],
+  "refreshTokens": []
+}

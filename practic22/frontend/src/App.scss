@@ -1,0 +1,829 @@
+// ==================== ПЕРЕМЕННЫЕ ====================
+
+$bg: #1a2e1f;
+$panel: rgba(200, 230, 200, 0.05);
+$border: rgba(180, 210, 170, 0.2);
+$text: #e0f0e0;
+$text-secondary: rgba(255, 255, 255, 0.7);
+
+$primary: rgba(120, 180, 120, 0.6);
+$primaryBg: rgba(100, 160, 100, 0.2);
+$primaryHover: rgba(120, 180, 120, 0.35);
+
+$danger: rgba(200, 100, 100, 0.5);
+$dangerBg: rgba(239, 68, 68, 0.12);
+$dangerHover: rgba(239, 68, 68, 0.25);
+
+$success: rgba(100, 180, 100, 0.5);
+$successBg: rgba(34, 197, 94, 0.12);
+
+$warning: rgba(255, 200, 100, 0.4);
+$warningBg: rgba(245, 158, 11, 0.12);
+
+$secondary: rgba(150, 150, 170, 0.3);
+$secondaryBg: rgba(150, 150, 170, 0.1);
+
+$box-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 0.75rem;
+$spacing-lg: 1rem;
+$spacing-xl: 1.5rem;
+$spacing-xxl: 2rem;
+
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
+
+$font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.25rem;
+$font-size-xxl: 1.5rem;
+$font-size-xxxl: 1.75rem;
+
+// ==================== МИКСИНЫ ====================
+
+@mixin glass-card($radius: $border-radius-md) {
+  background: $panel;
+  backdrop-filter: blur(10px);
+  border: 1px solid $border;
+  border-radius: $radius;
+  transition: all 0.3s ease;
+}
+
+@mixin container($max-width: 1200px) {
+  max-width: $max-width;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+}
+
+@mixin button($bg: transparent, $hover-bg: rgba(255, 255, 255, 0.05), $color: $text) {
+  background: $bg;
+  color: $color;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  
+  &:hover:not(:disabled) {
+    background: $hover-bg;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin text-ellipsis($lines: 2) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// ==================== ГЛОБАЛЬНЫЕ СТИЛИ ====================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  background-color: $bg;
+  color: $text;
+  line-height: 1.5;
+}
+
+// ==================== КОНТЕЙНЕРЫ ====================
+
+.container {
+  @include container();
+  padding: $spacing-xl $spacing-lg;
+  
+  @include mobile {
+    padding: $spacing-lg;
+  }
+}
+
+// ==================== ХЕДЕР ====================
+
+.header-with-logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+  
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  h2 {
+    margin: 0;
+    font-size: $font-size-xxxl;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  > div {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+  }
+}
+
+.user-role-badge {
+  background: $panel;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-sm;
+  border: 1px solid $border;
+  backdrop-filter: blur(10px);
+}
+
+.btn-logout {
+  @include button($dangerBg, $dangerHover);
+  border-color: $danger;
+}
+
+// ==================== ТУЛБАР ====================
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+  
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.btn-primary {
+  @include button($primaryBg, $primaryHover);
+  border-color: $primary;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.btn-admin, .btn-back {
+  @include button($secondaryBg, rgba(150, 150, 170, 0.2));
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+// ==================== СЕТКА ТОВАРОВ ====================
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: $spacing-xl;
+  
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+.product-card {
+  @include glass-card($border-radius-lg);
+  padding: $spacing-xl;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(120, 180, 120, 0.4);
+  }
+}
+
+.product-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+  flex-wrap: wrap;
+}
+
+.product-title {
+  margin: 0;
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $text;
+}
+
+.product-category {
+  background: $panel;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-xs;
+  border: 1px solid $border;
+}
+
+.product-price {
+  font-size: $font-size-xxl;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+  margin: $spacing-sm 0;
+}
+
+// ==================== ОПИСАНИЕ ТОВАРА ====================
+
+.product-description {
+  margin: $spacing-md 0;
+  line-height: 1.5;
+  color: $text-secondary;
+  
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+  
+  .collapsed {
+    @include text-ellipsis(2);
+  }
+  
+  .expanded {
+    display: block;
+  }
+}
+
+.toggle-description {
+  background: none;
+  border: none;
+  color: lighten($primary, 20%);
+  cursor: pointer;
+  font-size: $font-size-xs;
+  padding: $spacing-xs 0;
+  margin-top: $spacing-xs;
+  width: auto;
+  
+  &:hover {
+    color: lighten($primary, 30%);
+    text-decoration: underline;
+  }
+}
+
+// ==================== КНОПКИ ДЕЙСТВИЙ ====================
+
+.product-card-actions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  border-top: 1px solid $border;
+  
+  @include mobile {
+    flex-direction: column;
+  }
+  
+  .btn-edit, .btn-delete {
+    flex: 1;
+    text-align: center;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+  }
+  
+  .btn-edit {
+    background: $warningBg;
+    border: 1px solid $warning;
+    color: #fbbf24;
+    
+    &:hover {
+      background: rgba(245, 158, 11, 0.25);
+    }
+  }
+  
+  .btn-delete {
+    background: $dangerBg;
+    border: 1px solid $danger;
+    color: #f87171;
+    
+    &:hover {
+      background: $dangerHover;
+    }
+  }
+}
+
+// ==================== ФОРМЫ ====================
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  margin: $spacing-md 0;
+  padding: $spacing-md $spacing-lg;
+  font-size: $font-size-base;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: $border-radius-md;
+  color: $text;
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+select option {
+  background: $bg;
+}
+
+// ==================== КНОПКИ ФОРМЫ ====================
+
+.form-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.form-btn {
+  flex: 1;
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: transparent;
+  color: $text;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &--submit {
+    background: $primaryBg;
+    border-color: $primary;
+    
+    &:hover:not(:disabled) {
+      background: $primaryHover;
+    }
+  }
+  
+  &--cancel {
+    background: $secondaryBg;
+    border-color: $secondary;
+    color: $text-secondary;
+    
+    &:hover:not(:disabled) {
+      background: rgba(150, 150, 170, 0.2);
+    }
+  }
+}
+
+@include mobile {
+  .form-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-btn {
+    padding: 12px 16px;
+  }
+}
+
+// ==================== ТАБЛИЦА ПОЛЬЗОВАТЕЛЕЙ ====================
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: $border-radius-lg;
+  border: 1px solid $border;
+  background: $panel;
+  backdrop-filter: blur(10px);
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+  
+  th, td {
+    padding: $spacing-md $spacing-lg;
+    text-align: left;
+    border-bottom: 1px solid $border;
+  }
+  
+  th {
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    color: $text;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  select {
+    margin: 0;
+    padding: $spacing-xs $spacing-md;
+    width: auto;
+    min-width: 130px;
+  }
+  
+  button {
+    width: auto;
+    margin: 0;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-xs;
+  }
+}
+
+.current-user {
+  background: rgba(120, 180, 120, 0.1);
+}
+
+.self-badge {
+  font-size: $font-size-xs;
+  color: lighten($primary, 20%);
+  margin-left: $spacing-sm;
+}
+
+.btn-block {
+  @include button($dangerBg, $dangerHover);
+  border-color: $danger;
+}
+
+.btn-unblock {
+  @include button($successBg, rgba(34, 197, 94, 0.2));
+  border-color: $success;
+}
+
+.blocked {
+  color: #f87171;
+  font-weight: 500;
+}
+
+.active {
+  color: #4ade80;
+  font-weight: 500;
+}
+
+// ==================== ПРЕДУПРЕЖДЕНИЯ ====================
+
+.warning-note {
+  margin-top: $spacing-xl;
+  padding: $spacing-lg;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  color: #fbbf24;
+  
+  ul {
+    margin: $spacing-sm 0 0 $spacing-xl;
+    padding: 0;
+  }
+  
+  li {
+    padding: $spacing-xs 0;
+  }
+}
+
+// ==================== ОШИБКИ ====================
+
+.error {
+  background: $dangerBg;
+  border: 1px solid $danger;
+  color: #f87171;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+}
+
+// ==================== ЗАГРУЗКА ====================
+
+.loading, .loading-state {
+  text-align: center;
+  padding: $spacing-xxl;
+  color: $text-secondary;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $border;
+  border-top-color: lighten($primary, 20%);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto $spacing-lg;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ==================== ССЫЛКИ ====================
+
+a {
+  text-decoration: none;
+  color: lighten($primary, 20%);
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ==================== СТРАНИЦЫ АВТОРИЗАЦИИ ====================
+
+.auth-card {
+  max-width: 450px;
+  margin-left: 0;
+  margin-right: auto;
+  background: $panel;
+  backdrop-filter: blur(10px);
+  border: 1px solid $border;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xxl $spacing-xl;
+  
+  @include mobile {
+    padding: $spacing-xl $spacing-lg;
+  }
+  
+  h2 {
+    text-align: left;
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-xxxl;
+    font-weight: 600;
+    background: rgba(255,255,255,1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  form {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: $font-size-base;
+  font-weight: 600;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid $primary;
+  border-radius: $border-radius-md;
+  background: $primaryBg;
+  color: $text;
+  transition: all 0.2s ease;
+  margin-top: $spacing-lg;
+  
+  &:hover:not(:disabled) {
+    background: $primaryHover;
+    transform: translateY(-2px);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.auth-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-xl;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $border;
+  
+  &__text {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+  }
+  
+  &__link {
+    color: lighten($primary, 20%);
+    font-size: $font-size-sm;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: lighten($primary, 35%);
+      text-decoration: underline;
+    }
+  }
+}
+
+// ==================== ЗАГРУЗКА ИЗОБРАЖЕНИЙ ====================
+
+.image-upload {
+  margin: $spacing-md 0;
+  
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-lg;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px dashed $border;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    
+    &:hover {
+      border-color: $primary;
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+  
+  &__input {
+    display: none;
+  }
+}
+
+.image-preview {
+  position: relative;
+  margin-top: $spacing-md;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  &__remove {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid $danger;
+    color: #f87171;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    padding: 0;
+    margin: 0;
+    
+    &:hover {
+      background: $dangerBg;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  margin-bottom: $spacing-md;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+// ==================== ИЗОБРАЖЕНИЯ ТОВАРОВ ====================
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  margin-bottom: $spacing-md;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
+  
+  &--placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px dashed $border;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    
+    span:first-child {
+      font-size: 48px;
+      opacity: 0.5;
+    }
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: $panel;
+  border-radius: $border-radius-lg;
+  border: 1px dashed $border;
+  color: $text-secondary;
+  
+  p {
+    margin: 0;
+  }
+}

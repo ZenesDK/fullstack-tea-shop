@@ -1,0 +1,37 @@
+{
+  "name": "practic11",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "start-server-1": "cross-env SERVER_ID=SERVER_1 PORT=3000 nodemon server.js",
+    "start-server-2": "cross-env SERVER_ID=SERVER_2 PORT=3001 nodemon server.js",
+    "start-server-3": "cross-env SERVER_ID=SERVER_3 PORT=3002 nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.2",
+    "multer": "^2.1.1",
+    "nanoid": "^5.1.6",
+    "pg": "^8.20.0",
+    "redis": "^5.12.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.14",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

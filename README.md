@@ -23,6 +23,8 @@
 - ✅ **Чистый код** — принципы SOLID, паттерн Repository, middleware-архитектура
 
 ---
+![Главная](image.png)
+
 
 ## 🏗️ Архитектура системы
 
@@ -174,7 +176,7 @@ kr4-control-work/
 
 2. **Запуск стека**
    ```bash
-   cd kr4-control-work
+   cd practic23 # или другую нужную практику
    docker compose up --build
    # Для фонового режима: docker compose up -d --build
    ```

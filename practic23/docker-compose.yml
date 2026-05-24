@@ -25,6 +25,8 @@ services:
       - CLIENT_URL=http://localhost:3003
       - ACCESS_SECRET=your_access_secret
       - REFRESH_SECRET=your_refresh_secret
+    volumes:
+      - ./backend/uploads:/app/uploads
     depends_on:
       - mongodb
       - redis
@@ -42,6 +44,8 @@ services:
       - CLIENT_URL=http://localhost:3003
       - ACCESS_SECRET=your_access_secret
       - REFRESH_SECRET=your_refresh_secret
+    volumes:
+      - ./backend/uploads:/app/uploads
     depends_on:
       - mongodb
       - redis
